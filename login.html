@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form | Potato Restaurant</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url('food.jpg') no-repeat;
+      background-size: cover;
+      background-blend-mode: darken;
+      background-position: center;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+
+    .wrapper h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .input-box {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 15px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      outline: none;
+      border-radius: 25px;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .input-box input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .input-box i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .remember-forgot label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .remember-forgot a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .remember-forgot a:hover {
+      color: #ffa500;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      background: #ffa500;
+      border: none;
+      outline: none;
+      border-radius: 25px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ff8c00;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .register-link p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .register-link p a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .register-link p a:hover {
+      color: #ffa500;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <div class="input-box">
+        <input type="text" placeholder="Username" id="username" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" placeholder="Password" id="password" required>
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <div class="remember-forgot">
+        <label><input type="checkbox"> Remember Me</label>
+        <a href="#">Forgot Password</a>
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <div class="register-link">
+      <p>Don't have an account? <a href="register.html">Register</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      if (username.trim() === "" || password.trim() === "") {
+        alert("Please enter both username and password.");
+        return;
+      }
+      if (username === 'ra@gmail.com' && password === '123456') {
+        alert("Login successful!");
+        window.location.href = "selection.html";
+      } else {
+        alert("Invalid username or password.");
+      }
+    });
+  </script>
+</body>
+</html>

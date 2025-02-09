@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url("bg3.jpeg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .wrapper {
+            width: 420px;
+            background: lightgreen;
+            border: 2px solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(9px);
+            color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+        button {
+            background-color: rgb(243, 11, 11);
+            color: rgb(255, 247, 240);
+            border-radius: 8px;
+            height: 50px;
+            width: 200px;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <center>
+            <img src="qr.jpg" alt="QR Code">
+        </center>
+        <center>
+            <pre style="color:black">SCAN HERE TO PAY</pre>
+        </center>
+        <button onclick="showOrderReceivedAlert()">Submit Payment</button>
+        <a href="non-veg.html">
+            <button>Cancel</button>
+        </a>
+        <a href="zomato.html">
+            <button>Home</button>
+        </a>
+        <button onclick="confirmGeolocation()">Access Location</button>
+    </div>
+    
+    <script>
+        function confirmGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const message = `Your location: Latitude ${latitude}, Longitude ${longitude}`;
+            alert(message);
+            window.location.href = 'zomato.html'; // Redirect to home page after showing geolocation alert
+        }
+
+        function showOrderReceivedAlert() {
+            alert("Your order has been received successfully!");
+        }
+    </script>
+</body>
+</html>

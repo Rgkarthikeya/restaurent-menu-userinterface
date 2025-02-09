@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: rgba(0, 0, 0, 0.7) url('food.jpg') center center fixed;
+            background-size: cover;
+            background-blend-mode: overlay;
+            position: relative;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .contact-left, .contact-right {
+            padding: 20px;
+            flex-basis: 100%;
+            box-sizing: border-box;
+        }
+        @media (min-width: 768px) {
+            .contact-left {
+                flex-basis: 60%;
+            }
+            .contact-right {
+                flex-basis: 40%;
+            }
+        }
+        .contact-right {
+            background: rgba(255, 193, 7, 0.9); /* Semi-transparent yellow background */
+            color: #333;
+            border-radius: 8px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        form input[type="text"],
+        form input[type="tel"],
+        form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        form input[type="submit"] {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        form input[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Connect With Us</h1>
+        <p>We would like to respond to your queries and help you succeed. Feel free to get in touch with us.</p>
+        <div class="contact-box">
+            <div class="contact-left">
+                <h3>Send Your Request</h3>
+                <form name="myForm" onsubmit="return validateForm()">
+                    <label for="request">Problem:</label>
+                    <input type="text" id="request" name="request" required aria-labelledby="request">
+                    <label for="phone">Enter Your Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required aria-labelledby="phone" placeholder="123-456-7890">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="contact-right">
+                <h3>Reach Us</h3>
+                <address>
+                    <a href="mailto:tomato.help@gmail.com">tomato.help@gmail.com</a><br>
+                    Visit us at:<br>
+                    <a href="http://www.tomato.com" target="_blank">tomato.com</a><br>
+                    Food Street, New York<br>
+                    USA
+                </address>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form validation
+        function validateForm() {
+            const request = document.forms["myForm"]["request"].value;
+            const phone = document.forms["myForm"]["phone"].value;
+
+            if (request === "") {
+                alert("Please fill out the Problem field.");
+                return false;
+            }
+
+            const phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+            if (!phonePattern.test(phone)) {
+                alert("Please enter a valid phone number in the format: 123-456-7890.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

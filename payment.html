@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <style>
+        body {
+            background: url("bg3.jpeg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: black;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            color: white;
+        }
+        .account {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .account img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .account-name {
+            color: white;
+        }
+        .logout-popup {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logout-popup button {
+            background-color: #f00;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: rgb(243, 11, 11);
+            color: rgb(255, 247, 240);
+            border-radius: 8px;
+            height: 50px;
+            width: 100%;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type=text], input[type=email], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        input[type=submit], .qr-link {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        input[type=submit]:hover, .qr-link:hover {
+            background-color: #45a049;
+        }
+        .card-images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .card-images img {
+            width: 80px;
+            height: auto;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HUNGER KILLER</h1>
+        <div class="account" onclick="toggleLogoutPopup()">
+            <img src="accounticon.png" alt="Account">
+            <span class="account-name">Rahul</span>
+        </div>
+        <div class="logout-popup" id="logoutPopup">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+    <form action="/process_payment" method="post" onsubmit="return confirmGeolocation()">
+        <h2>Payment Details</h2>
+        <div>
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your first name.." required>
+        </div>
+        <div>
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
+        </div>
+        <div>
+            <label for="country">State</label>
+            <select id="country" name="country" required>
+                <option value="">Select your state..</option>
+                <option value="India">Andhra Pradesh</option>
+                <option value="Canada">Telangana</option>
+                <option value="UK">Bangalore</option>
+                <option value="Australia">Mumbai</option>
+            </select>
+        </div>
+        <div>
+            <label for="card">Credit Card Number</label>
+            <input type="text" id="card" name="cardnumber" placeholder="1234-5678-9101-1121" required autocomplete="off">
+        </div>
+        <div>
+            <label for="expmonth">Expiration Month</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="MM" required style="width: 60px;" autocomplete="off">
+        </div>
+        <div>
+            <label for="expyear">Expiration Year</label>
+            <input type="text" id="expyear" name="expyear" placeholder="YYYY" required style="width: 80px;" autocomplete="off">
+        </div>
+        <div>
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" placeholder="123" required style="width: 60px;" autocomplete="off">
+        </div>
+        <div class="card-images">
+            <img src="worldbank.jpeg" alt="Visa">
+            <img src="Mastercard Logo.png" alt="Mastercard">
+            <img src="sbi.png" alt="American Express">
+        </div>
+        <div>
+            <input type="submit" value="Submit Payment">
+            <a href="pay.html" class="qr-link">Try QR Payment</a>
+        </div>
+    </form>
+    <script>
+        function toggleLogoutPopup() {
+            const logoutPopup = document.getElementById('logoutPopup');
+            logoutPopup.style.display = logoutPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            window.location.href = 'login.html';
+        }
+
+        function confirmGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+                return false; // Prevent form submission
+            } else {
+                alert("Geolocation is not supported by this browser.");
+                return true; // Allow form submission without geolocation
+            }
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const message = `Your location: Latitude ${latitude}, Longitude ${longitude}`;
+            alert(message);
+            return true; // Allow form submission after showing geolocation alert
+        }
+    </script>
+</body>
+</html>

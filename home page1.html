@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Taste of India</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            background: rgba(0, 0, 0, 0.7) url('bacimage.jpg') center center fixed;
+            background-size: cover;
+        }
+        header {
+            background-color: #6A0DAD;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.2rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .about, .services {
+            padding: 2rem 0;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+        .about img, .chefs-special img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+        p {
+            text-align: justify;
+        }
+        .dish {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: #fff;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .dish.active {
+            display: flex;
+        }
+        .dish img {
+            max-width: 200px;
+            margin-right: 2rem;
+            border-radius: 10px;
+        }
+        .dish-description {
+            flex: 1;
+        }
+        .dish-description h3 {
+            color: #6A0DAD;
+        }
+        .slider-buttons {
+            text-align: center;
+        }
+        .slider-buttons button {
+            background-color: #6A0DAD;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Taste of India</h1>
+        <nav>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#chefs-special">Chef's Specials</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about" class="about">
+            <h2>About Us</h2>
+            <p>
+                Welcome to Taste of India, where we bring you the rich and diverse flavors of Indian cuisine. Our restaurant is dedicated to offering an authentic dining experience, with a menu that features both traditional and contemporary Indian dishes. We pride ourselves on using the finest ingredients and traditional cooking techniques to create dishes that are full of flavor and history.
+            </p>
+            <p>
+                Our chefs are passionate about Indian cuisine and have years of experience in crafting dishes that celebrate the rich culinary heritage of India. Whether you're a fan of spicy curries, flavorful biryanis, or savory tandoori items, we have something to delight every palate.
+            </p>
+        </section>
+
+        <section id="services" class="services">
+            <h2>Our Services</h2>
+            <p>
+                At Taste of India, we believe that excellent service is as important as excellent food. Our staff is trained to provide warm, friendly, and efficient service to ensure that every dining experience is memorable. From the moment you walk in, you'll be greeted with a smile and treated with the utmost care.
+            </p>
+            <p>
+                We understand the importance of customer satisfaction and strive to exceed expectations with every visit. Whether it's a special occasion, a casual meal, or a large gathering, we are committed to providing the best possible service to make your time with us enjoyable and stress-free.
+            </p>
+        </section>
+
+        <section id="chefs-special" class="chefs-special">
+            <h2>Chef's Special Dishes</h2>
+
+            <div class="dish active">
+                <img src="butterchicken.jpg" alt="Butter Chicken">
+                <div class="dish-description">
+                    <h3>Butter Chicken</h3>
+                    <p>A classic North Indian dish, our Butter Chicken is cooked in a creamy tomato-based sauce, rich with spices and flavors. Perfectly paired with naan or rice, this dish is a crowd favorite.</p>
+                </div>
+            </div>
+
+            <div class="dish">
+                <img src="palakpaneer.jpg" alt="Palak Paneer">
+                <div class="dish-description">
+                    <h3>Palak Paneer</h3>
+                    <p>Our Palak Paneer features soft paneer cubes simmered in a fresh spinach gravy, seasoned with traditional spices. It's a healthy and delicious choice for vegetarians and non-vegetarians alike.</p>
+                </div>
+            </div>
+
+            <div class="dish">
+                <img src="lambbiryani.jpg" alt="Lamb Biryani">
+                <div class="dish-description">
+                    <h3>Lamb Biryani</h3>
+                    <p>Indulge in our Lamb Biryani, a fragrant rice dish cooked with tender lamb pieces, aromatic spices, and herbs. Each bite is a burst of flavors that will transport you to the streets of India.</p>
+                </div>
+            </div>
+
+            <div class="slider-buttons">
+                <button id="prevBtn">Previous</button>
+                <button id="nextBtn">Next</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Taste of India. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Image slider for Chef's Special Dishes
+        const dishes = document.querySelectorAll('.dish');
+        let currentDish = 0;
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            dishes[currentDish].classList.remove('active');
+            currentDish = (currentDish + 1) % dishes.length;
+            dishes[currentDish].classList.add('active');
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            dishes[currentDish].classList.remove('active');
+            currentDish = (currentDish - 1 + dishes.length) % dishes.length;
+            dishes[currentDish].classList.add('active');
+        });
+    </script>
+</body>
+</html>

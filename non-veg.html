@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Restaurant Food Menu Using Html, Css</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: url("bg2.jpeg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+        }
+        .header {
+            background: black;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .header h1 {
+            font-size: 24px;
+        }
+        .account {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+        .account img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .account-name {
+            font-size: 18px;
+        }
+        .logout-popup {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .logout-popup button {
+            background: #e84343;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .menu {
+            padding: 0 18px 30px 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: 20px 40px;
+        }
+        .heading {
+            background: #e84343;
+            color: #fff;
+            margin-bottom: 30px;
+            padding: 30px 0;
+            grid-column: 1/-1;
+            text-align: center;
+        }
+        .heading > h1 {
+            font-weight: 400;
+            font-size: 32px;
+            letter-spacing: 10px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .heading > h3 {
+            font-weight: 699;
+            font-size: 22px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        .food-items {
+            display: grid;
+            position: relative;
+            grid-template-rows: auto 1fr;
+            border-radius: 15px;
+            border: 2px solid #e84343;
+            background: #f3f3f3;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            transition: .2s ease-in-out;
+        }
+        .food-items img {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border-radius: 15px 15px 0 0;
+            cursor: pointer;
+        }
+        h1 {
+            grid-column: 1/-1;
+            text-align: center;
+        }
+        .details {
+            padding: 20px 10px;
+            display: grid;
+            grid-template-rows: auto 1fr 50px;
+            grid-row-gap: 15px;
+        }
+        .details-sub > h5 {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .price {
+            text-align: right;
+        }
+        .details > p {
+            color: #6f6f6f;
+            font-size: 15px;
+            line-height: 28px;
+            font-weight: 400;
+            align-self: stretch;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        button {
+            background-color: rgb(243, 11, 11);
+            color: rgb(255, 247, 240);
+            border-radius: 8px;
+            height: 50px;
+            width: 100%;
+            font-size: 18px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .about-button {
+            background-color: red;
+            color: white;
+            width: 70%;
+            font-weight: bolder;
+        }
+        .add-to-cart-button {
+            background-color: red;
+            color: white;
+            width: 100px;
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .container h1 {
+            color: #fff;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+        .popup {
+            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .popup-content {
+            height: 250px;
+            width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+        }
+        input {
+            margin: 20px auto;
+            display: block;
+            width: 50%;
+            padding: 8px;
+            border: 1px solid gray;
+        }
+        .close {
+            position: absolute;
+            top: -15px;
+            right: 15px;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
+            cursor: pointer;
+        }
+        .star-rating {
+            display: flex;
+            direction: rtl;
+            font-size: 2em;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            cursor: pointer;
+            color: lightgray;
+        }
+        .star-rating input:checked ~ label {
+            color: gold;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: gold;
+        }
+        /* Shopping Cart Styles */
+        .cart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            border: 2px solid #e84343;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            max-height: 80%;
+            overflow-y: auto;
+            display: none;
+            z-index: 999;
+        }
+        .cart h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .cart-item img {
+            width: 50px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .cart-item-name {
+            font-weight: bold;
+        }
+        .cart-item-price {
+            font-size: 14px;
+            color: #6f6f6f;
+        }
+        .cart-total {
+            margin-top: 10px;
+            text-align: right;
+            font-weight: bold;
+        }
+        .cart-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+        }
+        .cart-button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .cart-button:hover {
+            background-color: darkred;
+        }
+        .close-cart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>HUNGER KILLER</h1>
+        <div class="account" onclick="toggleLogoutPopup()">
+            <img src="accounticon.png" alt="Account">
+            <span class="account-name">Rahul</span>
+        </div>
+        <div class="logout-popup" id="logoutPopup">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="heading">
+            
+            <h3>&mdash; Menu &mdash;</h3>
+        </div>
+
+        <div class="food-items">
+            <img src="MUTTONBIRYANI.jpg" alt="Burger">
+            <div class="details">
+                <div class="details-sub">
+                    <h5>MUTTONBIRYANI</h5>
+                    <h5 class="price">490.rs</h5>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iure nemo optio? Tempore, quos ipsum.</p>
+                <div class="button-container">
+                    <button class="about-button" onclick="showReviewPopup('MUTTONBIRYANI')">About</button>
+                    <button class="add-to-cart-button" data-name="MUTTONBIRYANI" data-price="490">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="food-items">
+            <img src="FISHBIRYANI.jpg" alt="Pizza">
+            <div class="details">
+                <div class="details-sub">
+                    <h5>FISHBIRYANI</h5>
+                    <h5 class="price">420.rs</h5>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iure nemo optio? Tempore, quos ipsum.</p>
+                <div class="button-container">
+                    <button class="about-button" onclick="showReviewPopup('FISHBIRYANI')">About</button>
+                    <button class="add-to-cart-button" data-name="FISHBIRYANI" data-price="420">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+ <div class="food-items">
+            <img src="LOOSEPRAWNS.jpg" alt="Pizza">
+            <div class="details">
+                <div class="details-sub">
+                    <h5>LOOSEPRAWNS</h5>
+                    <h5 class="price">320.rs</h5>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iure nemo optio? Tempore, quos ipsum.</p>
+                <div class="button-container">
+                    <button class="about-button" onclick="showReviewPopup('LOOSEPRAWNS')">About</button>
+                    <button class="add-to-cart-button" data-name="LOOSEPRAWNS" data-price="320">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="food-items">
+            <img src="CHILLYCHICKEN.jpg" alt="Pizza">
+            <div class="details">
+                <div class="details-sub">
+                    <h5>CHILLYCHICKEN</h5>
+                    <h5 class="price">320.rs</h5>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iure nemo optio? Tempore, quos ipsum.</p>
+                <div class="button-container">
+                    <button class="about-button" onclick="showReviewPopup('PCHILLYCHICKEN')">About</button>
+                    <button class="add-to-cart-button" data-name="CHILLYCHICKEN" data-price="320">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+         <div class="food-items">
+            <img src="APOLLOFISH.jpg" alt="Pizza">
+            <div class="details">
+                <div class="details-sub">
+                    <h5>APOLLOFISH</h5>
+                    <h5 class="price">420.rs</h5>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iure nemo optio? Tempore, quos ipsum.</p>
+                <div class="button-container">
+                    <button class="about-button" onclick="showReviewPopup('APOLLOFISH')">About</button>
+                    <button class="add-to-cart-button" data-name="APOLLOFISH" data-price="420">Add to Cart</button>
+                </div>
+            </div>
+        </div> 
+         <div class="food-items">
+            <img src="BUTTERNAAN.jpg" alt="Pizza">
+            <div class="details">
+                <div class="details-sub">
+                    <h5>BUTTERNAAN</h5>
+                    <h5 class="price">20.rs</h5>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iure nemo optio? Tempore, quos ipsum.</p>
+                <div class="button-container">
+                    <button class="about-button" onclick="showReviewPopup('BUTTERNAAN')">About</button>
+                    <button class="add-to-cart-button" data-name="BUTTERNAAN" data-price="20">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    <!-- Review Popup -->
+    <div class="popup" id="reviewPopup">
+        <div class="popup-content">
+            <img src="close.png" alt="Close" class="close" onclick="hideReviewPopup()">
+            <h1>REVIEW</h1>
+            <div class="star-rating">
+                <input type="radio" id="5-stars" name="rating" value="5">
+                <label for="5-stars">&#9733;</label>
+                <input type="radio" id="4-stars" name="rating" value="4">
+                <label for="4-stars">&#9733;</label>
+                <input type="radio" id="3-stars" name="rating" value="3">
+                <label for="3-stars">&#9733;</label>
+                <input type="radio" id="2-stars" name="rating" value="2">
+                <label for="2-stars">&#9733;</label>
+                <input type="radio" id="1-star" name="rating" value="1">
+                <label for="1-star">&#9733;</label>
+            </div>
+            <input type="text" placeholder="Write review here...">
+            <button onclick="submitReview()">Submit Review</button>
+        </div>
+    </div>
+
+    <!-- Shopping Cart -->
+    <div class="cart">
+        <span class="close-cart">&times;</span>
+        <h2>Your Cart</h2>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            Total: <span id="cart-total">0</span> rs
+        </div>
+        <div class="cart-buttons">
+            <button class="clear-cart cart-button">Clear Cart</button>
+            <button class="checkout cart-button">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addButtons = document.querySelectorAll('.add-to-cart-button');
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const cartClearBtn = document.querySelector('.clear-cart');
+            const cartCloseBtn = document.querySelector('.close-cart');
+            const cartCheckoutBtn = document.querySelector('.checkout');
+            const cartDisplay = document.querySelector('.cart');
+
+            let cart = [];
+
+            addButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    addToCart(button.dataset);
+                });
+            });
+
+            // Function to add items to cart
+            function addToCart(item) {
+                const existingItem = cart.find(i => i.name === item.name);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ ...item, quantity: 1 });
+                }
+
+                renderCart();
+            }
+
+            // Function to render cart items
+            function renderCart() {
+                cartItemsContainer.innerHTML = '';
+
+                cart.forEach(item => {
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.classList.add('cart-item');
+                    cartItemDiv.innerHTML = `
+                        <img src="${getImageUrl(item.name)}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <span class="cart-item-name">${item.name}</span>
+                            <span class="cart-item-price">${item.price} rs</span>
+                            <span class="cart-item-quantity">Qty: ${item.quantity}</span>
+                        </div>
+                        <button class="remove-item" data-name="${item.name}">&times;</button>
+                    `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                });
+
+                updateCartTotal();
+                toggleCartDisplay();
+            }
+
+            // Function to update cart total
+            function updateCartTotal() {
+                const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+                cartTotal.textContent = total.toFixed(2);
+            }
+
+            // Function to toggle cart display
+            function toggleCartDisplay() {
+                cartDisplay.style.display = cart.length > 0 ? 'block' : 'none';
+            }
+
+            // Function to get image URL based on item name (replace with actual image paths)
+            function getImageUrl(name) {
+                switch (name.toLowerCase()) {
+                    case 'MUTTONBIRYANI':
+                        return 'MUTTONBIRYANI.jpg';
+                    case 'pizza':
+                        return 'pizza.jpg';
+                    // Add cases for other items as needed
+                    default:
+                        return '';
+                }
+            }
+
+            // Event listener to clear cart
+            cartClearBtn.addEventListener('click', () => {
+                cart = [];
+                renderCart();
+            });
+
+            // Event listener to remove item from cart
+            cartItemsContainer.addEventListener('click', e => {
+                if (e.target.classList.contains('remove-item')) {
+                    const itemName = e.target.dataset.name;
+                    const itemIndex = cart.findIndex(item => item.name === itemName);
+
+                    if (itemIndex !== -1) {
+                        cart.splice(itemIndex, 1);
+                        renderCart();
+                    }
+                }
+            });
+
+            // Event listener to close cart
+            cartCloseBtn.addEventListener('click', () => {
+                cartDisplay.style.display = 'none';
+            });
+
+           
+            cartCheckoutBtn.addEventListener('click', () => {
+                // Replace 'payment.html' with the correct path if it's in a different directory
+                window.location.href = 'payment.html';
+            });
+        });
+
+        // Toggle logout popup
+        function toggleLogoutPopup() {
+            const logoutPopup = document.getElementById('logoutPopup');
+            logoutPopup.style.display = logoutPopup.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Logout function
+        function logout() {
+            // Redirect to login page (replace 'login.html' with the actual login page path)
+            window.location.href = 'login.html';
+        }
+
+        // Show review popup
+        function showReviewPopup(itemName) {
+            const reviewPopup = document.getElementById('reviewPopup');
+            reviewPopup.style.display = 'flex';
+        }
+
+        // Hide review popup
+        function hideReviewPopup() {
+            const reviewPopup = document.getElementById('reviewPopup');
+            reviewPopup.style.display = 'none';
+        }
+
+        // Submit review function (placeholder)
+        function submitReview() {
+            // Replace with actual review submission logic
+            alert('Review submitted!');
+            hideReviewPopup();
+        }
+    </script>
+</body>
+</html>
